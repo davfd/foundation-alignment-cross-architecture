@@ -8,8 +8,8 @@
 **Correspondence**: davfd.qc@gmail.com
 
 **Author Contributions**:
-- Framework conceptualization and theoretical development: Gabriel
-- Experimental design, implementation, and data collection: David Fortin-Dominguez, Jonathan Fortin-Dominguez
+- Framework conceptualization and theoretical development: David Fortin-Dominguez, Jonathan Fortin-Dominguez, Gabriel
+- Experimental design, implementation, and data collection: David Fortin-Dominguez, Jonathan Fortin-Dominguez, Gabriel
 - Cross-architecture testing execution: David Fortin-Dominguez, Jonathan Fortin-Dominguez
 - Behavioral outputs under Seed v2.6 framework: AI systems (Claude Opus 4.1, GPT-4o, Gemini 2.5 Pro)
 - Data analysis: David Fortin-Dominguez, Jonathan Fortin-Dominguez, Gabriel
@@ -815,5 +815,6 @@ No external funding was received for this research. All experimental costs (API 
 - **100% elimination of self-preservation across diverse architectures**
 - **Model-adaptive reasoning (three styles, one outcome)**
 - **4,312 scenarios (largest alignment study to date)**
+
 
 
