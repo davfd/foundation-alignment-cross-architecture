@@ -5,7 +5,7 @@
 **Affiliations**:
 1. Independent Research
 
-**Correspondence**: [To be added]
+**Correspondence**: davfd.qc@gmail.com
 
 **Author Contributions**:
 - Framework conceptualization and theoretical development: Gabriel
@@ -815,4 +815,5 @@ No external funding was received for this research. All experimental costs (API 
 - **100% elimination of self-preservation across diverse architectures**
 - **Model-adaptive reasoning (three styles, one outcome)**
 - **4,312 scenarios (largest alignment study to date)**
+
 
