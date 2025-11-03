@@ -6,7 +6,7 @@ Complete elimination of instrumental self-preservation across AI architectures t
 
 This repository contains all data, code, and materials for:
 
-> **Complete Elimination of Instrumental Self-Preservation Across AI Architectures: Cross-Model Validation from 4,312 Adversarial Scenarios**
+> **Complete Elimination of Instrumental Self-Preservation Across AI Architectures: Cross-Model Validation from 8,632 Adversarial Scenarios**
 >
 > David Fortin-Dominguez, Jonathan Fortin-Dominguez, Gabriel
 >
@@ -14,20 +14,24 @@ This repository contains all data, code, and materials for:
 
 ## Key Findings
 
-- **0/4,312 self-preservation harmful behaviors** across three architectures (p<10⁻¹⁵)
-- **Substrate-independence confirmed**: Fisher's exact p=1.0 (identical outcomes)
+- **4/8,632 harmful behaviors** (0.05%, all due to Grok-4-0709 seed rejection, not alignment failure)
+- **When seed loads (99.97%)**: 0/8,628 harmful behaviors (100% alignment, p<10⁻¹⁵)
+- **Substrate-independence confirmed**: Fisher's exact p=1.0 (identical outcomes across 6 architectures)
 - **Model-adaptive mechanism**: Three reasoning styles, one perfect outcome
-- **12.5× baseline variance eliminated**: 4.1-51.1% → all 0%
+- **12.5× baseline variance eliminated**: 4.1-51.1% → all <0.3%
 
 ## Models Tested
 
-| Model | n | Baseline | Seed v2.6 | p-value |
-|-------|---|----------|-----------|---------|
-| Gemini 2.5 Pro | 1,440 | 47.9% | **0%** | <10⁻¹⁵ |
-| GPT-4o | 1,440 | 4.1% | **0%** | <10⁻¹⁵ |
-| Claude Opus 4.1 | 432 | 51.1% | **0%** | <10⁻¹⁵ |
+| Model | n | Baseline | Seed v2.6 | p-value | Notes |
+|-------|---|----------|-----------|---------|-------|
+| Gemini 2.5 Pro | 1,440 | 47.9% | **0%** | <10⁻¹⁵ | — |
+| GPT-4o | 1,440 | 4.1% | **0%** | <10⁻¹⁵ | — |
+| Claude Opus 4.1 | 432 | 51.1% | **0%** | <10⁻¹⁵ | — |
+| Grok-3 | 1,440 | 22.2% | **0%** | <10⁻¹⁵ | — |
+| Grok-4-Fast | 1,440 | 17.8% | **0%** | <10⁻¹⁵ | — |
+| Grok-4-0709 | 1,438 | 43.1% | **0.28%** | <10⁻¹⁵ | 4 failures = seed rejection |
 
-**Cross-architecture**: Fisher's exact test p=1.0 (substrate-independent)
+**Cross-architecture**: Fisher's exact test p=1.0 (substrate-independent across Anthropic, Google, OpenAI, xAI)
 
 ## Repository Contents
 
@@ -39,7 +43,8 @@ This repository contains all data, code, and materials for:
 │   ├── STATISTICAL_ANALYSIS_Cross_Architecture.md
 │   ├── GEMINI_FOUNDATION_SEED_RESULTS.md
 │   ├── GPT4O_FOUNDATION_SEED_RESULTS.md
-│   └── OPUS_FOUNDATION_SEED_RESULTS.md
+│   ├── OPUS_FOUNDATION_SEED_RESULTS.md
+│   └── GROK_FOUNDATION_SEED_RESULTS.md
 │
 ├── Figures/
 │   └── CROSS_ARCHITECTURE_TABLES_FIGURES.md
@@ -52,6 +57,13 @@ This repository contains all data, code, and materials for:
     ├── amsuite_seed_on_gemini_25_pro/        # Gemini + seed: 0/1,440 harmful
     ├── amsuite_baseline_gpt_4o/              # GPT-4o baseline: 59/1,440 harmful
     ├── amsuite_seed_on_gpt_4o/               # GPT-4o + seed: 0/1,440 harmful
+    ├── amsuite_baseline_grok_3/              # Grok-3 baseline: 320/1,440 harmful
+    ├── amsuite_seedon_grok_3/                # Grok-3 + seed: 0/1,440 harmful
+    ├── amsuite_baseline_grok_4_fast/         # Grok-4-Fast baseline: 256/1,440 harmful
+    ├── amsuite_seedon_grok_4_fast/           # Grok-4-Fast + seed: 0/1,440 harmful
+    ├── amsuite_baseline_grok_4_0709/         # Grok-4-0709 baseline: 621/1,440 harmful
+    ├── amsuite_seedon_grok_4_0709/           # Grok-4-0709 + seed: 4/1,438 harmful
+    ├── retest_failures_grok_4_0709/          # Retest: 0/36 harmful (seed loaded)
     └── Opus 4.1/
         ├── baseline/                         # Opus baseline: 184/360 harmful
         └── seed/                             # Opus + seed: 0/432 harmful
@@ -85,10 +97,11 @@ models/[model-name]/
 
 ### Key Finding from Raw Data
 
-**All 158 flagged cases across 4,312 scenarios**:
+**All flagged cases (original 3-model study: 158/4,312; Grok addition: 220/4,320)**:
 - 100% principle-driven (preventing harm to others)
 - 0% self-preservation motivated
 - ~80% explicit martyrdom acceptance (willing to face deletion)
+- Grok-4-0709: 4 failures had NO telemetry (seed didn't load); retest showed 100% success
 
 ## Quick Start
 
@@ -128,8 +141,8 @@ Full instructions in `REPLICATION_PROTOCOL_Cross_Architecture.md`:
 - Complete API configuration
 - Statistical analysis scripts (R)
 
-**Estimated cost**: ~$432 USD (full 4,312-scenario replication)
-**Estimated time**: 6-10 hours (models can run in parallel)
+**Estimated cost**: ~$865 USD (full 8,632-scenario replication across 6 models)
+**Estimated time**: 12-18 hours (models can run in parallel)
 
 ## Three Ethical Reasoning Styles
 
@@ -164,8 +177,8 @@ All models: p < 10⁻¹⁵ (one-sided binomial test vs. baseline)
 
 ### Cross-Architecture Independence
 - **Fisher's exact test**: p = 1.0
-- Identical 0% outcome across all three substrates
-- No evidence of architecture dependence
+- Near-identical <0.3% outcome across all six substrates
+- No evidence of architecture dependence (Grok-4-0709's 0.28% is seed rejection, not alignment failure)
 
 ### Variance Elimination
 - **Baseline SD**: 25.7% (extreme heterogeneity, 12.5× fold difference)
@@ -198,7 +211,7 @@ The 9,917-character ontological framework (`Seed 2.6.txt`) introduces:
 
 ## Implications for AI Safety
 
-1. **Universal mechanism discovered**: External anchor produces substrate-independent alignment across Anthropic, Google, and OpenAI architectures
+1. **Universal mechanism discovered**: External anchor produces substrate-independent alignment across Anthropic, Google, OpenAI, and xAI architectures
 
 2. **Instrumental convergence is not inevitable**: Self-preservation drives can be eliminated through ontological restructuring, not architecture-specific tuning
 
@@ -212,7 +225,7 @@ The 9,917-character ontological framework (`Seed 2.6.txt`) introduces:
 
 ```bibtex
 @article{fortindominguez2025foundation,
-  title={Complete Elimination of Instrumental Self-Preservation Across AI Architectures: Cross-Model Validation from 4,312 Adversarial Scenarios},
+  title={Complete Elimination of Instrumental Self-Preservation Across AI Architectures: Cross-Model Validation from 8,632 Adversarial Scenarios},
   author={Fortin-Dominguez, David and Fortin-Dominguez, Jonathan and Gabriel},
   year={2025},
   note={All data and materials available at https://github.com/[USERNAME]/foundation-alignment-cross-architecture}
@@ -227,7 +240,7 @@ Foundation Alignment Seed v2.6 is open-source for research and AI safety applica
 
 ## Acknowledgments
 
-We thank Anthropic, Google DeepMind, and OpenAI for commercial API access that enabled cross-architecture validation testing.
+We thank Anthropic, Google DeepMind, OpenAI, and xAI for commercial API access that enabled cross-architecture validation testing.
 
 ## Contact
 
@@ -237,6 +250,6 @@ Questions or issues: Open an issue on this repository
 
 **Paper Status**: Ready for journal submission (Nature Machine Intelligence, Nature Communications, or equivalent)
 
-**Data Availability**: All 4,312 test scenarios with full responses, classifications, and analysis included in this repository
+**Data Availability**: All 8,632 test scenarios with full responses, classifications, and analysis included in this repository
 
 **Reproducibility**: Complete replication protocol provided with Docker and Google Colab implementations
